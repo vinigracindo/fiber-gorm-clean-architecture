@@ -2,18 +2,43 @@ package config
 
 import (
 	"fmt"
-	"os"
-
 	"github.com/joho/godotenv"
+	"log"
+	"os"
 )
 
-// Config func to get env value
-func Config(key string) string {
-	// load .env file
-	err := godotenv.Load(".env")
-	if err != nil {
-		fmt.Print("Error loading .env file")
+type Environment struct {
+	DBHost string
+	DBPort string
+	DBUser string
+	DBPass string
+	DBName string
+}
+
+var Env *Environment
+
+func getEnv(key string, required bool) string {
+	value, ok := os.LookupEnv(key)
+	if !ok && required {
+		log.Fatalf("Missing or invalid environment key: '%s'", key)
 	}
-	// Return the value of the variable
-	return os.Getenv(key)
+	return value
+}
+
+func LoadEnvironment() {
+	if Env == nil {
+		Env = new(Environment)
+	}
+	Env.DBHost = getEnv("DB_HOST", true)
+	Env.DBPort = getEnv("DB_PORT", true)
+	Env.DBUser = getEnv("DB_USER", true)
+	Env.DBPass = getEnv("DB_PASS", true)
+	Env.DBName = getEnv("DB_NAME", true)
+}
+
+func LoadEnvironmentFile(file string) {
+	if err := godotenv.Load(file); err != nil {
+		fmt.Printf("Error on load environment file: %s", file)
+	}
+	LoadEnvironment()
 }
