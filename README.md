@@ -48,6 +48,11 @@ docker run --name go-postgres -e POSTGRES_USER=golang -e POSTGRES_PASSWORD=12345
 go run main.go
 ```
 
+Alternative using docker-compose
+```bash
+docker-compose up
+```
+
 ## 📦 Used packages
 
 | Name                                                                  | Version   | Type       |
