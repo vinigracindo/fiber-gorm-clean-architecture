@@ -1,0 +1,24 @@
+version: "3.9"
+services:
+  db:
+    image: postgres
+    restart: always
+    #ports:
+    # - "5432:5432"
+    environment:
+      POSTGRES_USER: example
+      POSTGRES_PASSWORD: example
+      POSTGRES_DB: test
+      
+  app:
+    build: .
+    ports:
+      - "3000:3000"
+    links:
+      - db
+    environment: 
+      DB_HOST: db
+      DB_PORT: 5432
+      DB_USER: example
+      DB_PASS: example
+      DB_NAME: test

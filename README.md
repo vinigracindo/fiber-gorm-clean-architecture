@@ -48,15 +48,20 @@ docker run --name go-postgres -e POSTGRES_USER=golang -e POSTGRES_PASSWORD=12345
 go run main.go
 ```
 
+Alternative using docker-compose
+```bash
+docker-compose up
+```
+
 ## 📦 Used packages
 
 | Name                                                                  | Version   | Type       |
 | --------------------------------------------------------------------- | --------- | ---------- |
 | [go](https://go.dev/)                                                 | `v1.17`   | core       |
-| [gofiber/fiber/v2](github.com/gofiber/fiber/v2)                       | `v2.23.0` | core       |
-| [asaskevich/govalidator](github.com/asaskevich/govalidator)           | `v0.0.2`  | core       |
-| [joho/godotenv](github.com/joho/godotenv)                             | `v1.4.0`  | config     |
-| [gorm](gorm.io/gorm)                                                  | `v1.22.4` | database   |
-| [gorm/driver/postgres](gorm.io/driver/postgres)                       | `v1.2.3`  | database   |
-| [google/uuid](github.com/google/uuid)                                 | `v1.3.0`  | utils      |
-| [stretchr/testify](github.com/stretchr/testify)                       | `v1.7.0`  | test       |
+| [gofiber/fiber/v2](https://github.com/gofiber/fiber/v2)               | `v2.23.0` | core       |
+| [asaskevich/govalidator](https://github.com/asaskevich/govalidator)   | `v0.0.2`  | core       |
+| [joho/godotenv](https://github.com/joho/godotenv)                     | `v1.4.0`  | config     |
+| [gorm](https://gorm.io/gorm)                                          | `v1.22.4` | database   |
+| [gorm/driver/postgres](https://gorm.io/driver/postgres)               | `v1.2.3`  | database   |
+| [google/uuid](https://github.com/google/uuid)                         | `v1.3.0`  | utils      |
+| [stretchr/testify](https://github.com/stretchr/testify)               | `v1.7.0`  | test       |
