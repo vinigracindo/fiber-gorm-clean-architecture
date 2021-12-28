@@ -8,45 +8,61 @@ The following structure is something that has evolved based on several projects 
 
 
 ```
-- cmd --> folder that has one or more application entry points.
-  |- api --> You can create different output commands like Api rest, web, GRPC or any other technology.
-    |- handler -->
-    |- router -->
-    |- app.go
-- config --> It's a utility folder. I wonder if the .envs files could be in here.
-  |- config.go
-- entity --> Application entities.
-  |- user.go
-  |- user_test.go
-  |- ...
-- infra --> I think the infrastructure should be separated by technology.
-  |- gorm --> he gorm folder is responsible for managing the gorm infrastructure.
-    |- database
-      |- gorm.go
-    |- repository
-      |- user_gorm.go --> I think putting gorms tags on entities is not appropriate. Our application can simply stop using gorm and thus entities do not lose compatibility.
-- usecase
-  |- user
-    |- interface.go
-    |- service.go
+- api --> You can create different output commands like Api rest, web, GRPC or any other technology.
+  |- fiber --> structure fiber api
+- cmd --> Main applications for this project.
+- pkg --> Library code that's ok to use by external applications
+  |- config
+    |- config.go
+- internal
+  |- entity --> Application entities.
+    |- user.go
+    |- user_test.go
+    |- ...
+  |- infra --> I think the infrastructure should be separated by technology.
+    |- gorm --> he gorm folder is responsible for managing the gorm infrastructure.
+      |- database
+        |- gorm.go
+      |- repository
+        |- user_gorm.go --> I think putting gorms tags on entities is not appropriate. Our application can simply stop using gorm and thus entities do not lose compatibility.
+  |- usecase
+    |- user
+      |- interface.go
+      |- service.go
 ```
 
 ## Endpoints
 
-- GET / - Ping
-- POST /api/v1/users - {"username", "password"}
+- GET   /             - Ping
+- POST  /api/v1/users - Request: {"username", "password"} - Create a user
+- GET   /api/v1/users - List all users
+- GET   /api/v1/users/:id - List a user
 
-## ⚡️ Quick start
+
+## How to start
 
 1. Run a postgresql container
 ```bash
 docker run --name go-postgres -e POSTGRES_USER=golang -e POSTGRES_PASSWORD=12345678 -e POSTGRES_DB=fgcadb -p 5432:5432 -d postgres
 ```
 
-2. Run main.go
+2. Create a .env file
 ```bash
-go run main.go
+# Database settings:
+DB_HOST="localhost"
+DB_PORT=5432
+DB_USER="golang"
+DB_PASS="12345678"
+DB_NAME="fgcadb"
+DB_SSL_MODE="disable"
 ```
+
+3. Run main.go
+```bash
+go run cmd/main.go
+```
+
+## ⚡️ Quick start
 
 Alternative using docker-compose
 ```bash

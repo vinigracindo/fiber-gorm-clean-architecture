@@ -1,17 +1,18 @@
-package entity
+package entities
 
 import (
 	"time"
 
 	"github.com/asaskevich/govalidator"
+	"github.com/vinigracindo/fiber-gorm-clean-architecture/internal/pkg/id"
 	"golang.org/x/crypto/bcrypt"
 )
 
 type User struct {
-	ID        ID        `valid:"required"`
-	Username  string    `valid:"required"`
-	Password  string    `valid:"required"`
-	CreatedAt time.Time `valid:"required"`
+	ID        id.ID     `valid:"required" json:"id"`
+	Username  string    `valid:"required" json:"username"`
+	Password  string    `valid:"required" json:"password"`
+	CreatedAt time.Time `valid:"required" json:"created_at"`
 }
 
 func (u User) IsValid() (bool, error) {
@@ -45,7 +46,7 @@ func NewUser(username string, password string) (*User, error) {
 	}
 
 	user := &User{
-		ID:        NewID(),
+		ID:        id.NewID(),
 		Username:  username,
 		Password:  pwd,
 		CreatedAt: time.Now(),

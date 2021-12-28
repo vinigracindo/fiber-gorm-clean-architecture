@@ -1,17 +1,17 @@
-package entity_test
+package entities_test
 
 import (
 	"testing"
 	"time"
 
-	"github.com/google/uuid"
 	"github.com/stretchr/testify/require"
-	"github.com/vinigracindo/fiber-gorm-clean-architecture/entity"
+	"github.com/vinigracindo/fiber-gorm-clean-architecture/internal/entities"
+	"github.com/vinigracindo/fiber-gorm-clean-architecture/internal/pkg/id"
 )
 
-func TestEntityUser_IsValid(t *testing.T) {
-	user := entity.User{}
-	user.ID, _ = uuid.NewUUID()
+func TestEntitiesUser_IsValid(t *testing.T) {
+	user := entities.User{}
+	user.ID = id.NewID()
 	user.Username = "username"
 	user.Password = "password"
 	user.CreatedAt = time.Now()
@@ -22,7 +22,7 @@ func TestEntityUser_IsValid(t *testing.T) {
 }
 
 func TestEntityUser_NewUser(t *testing.T) {
-	user, err := entity.NewUser("username", "123456")
+	user, err := entities.NewUser("username", "123456")
 	require.Nil(t, err, err)
 	require.NotEmpty(t, user.CreatedAt, err)
 	require.NotEmpty(t, user.ID, err)
@@ -35,7 +35,7 @@ func TestEntityUser_NewUser(t *testing.T) {
 }
 
 func TestEntityUser_ValidatePassword(t *testing.T) {
-	u, _ := entity.NewUser("username", "123456")
+	u, _ := entities.NewUser("username", "123456")
 	err := u.ValidatePassword("123456")
 	require.Nil(t, err, err)
 	err = u.ValidatePassword("wrong_password")
